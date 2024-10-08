@@ -1,0 +1,7 @@
+langchain 
+boto3   
+pinecone-client  
+tqdm   
+unstructured  
+sentence-transformers   
+python-magic-bin  
