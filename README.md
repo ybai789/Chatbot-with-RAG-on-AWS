@@ -195,26 +195,11 @@ AWS Bedrock allows you to access various foundation models (such as **Anthropic 
 3. **Get API Endpoint**:
    - AWS Bedrock will provide an API endpoint that you can use to call the model. This endpoint will be used later in your application (like Lambda functions).
 
-
-
 ### 7. **Monitoring and Debugging**
 
    - **CloudWatch Logs**:
      1. When the Lambda function executes, all logs are recorded in **CloudWatch Logs**.
      2. Use CloudWatch to check the execution status, error messages, and whether the SageMaker endpoint calls were successful.
-
-### Summary:
-
-- **Amazon S3**: Stores markdown and PDF files that will be processed.
-- **Amazon SageMaker**: Deploys two Hugging Face models:
-   1. **Embedding Model**: Used for embedding generation.
-   2. **Reranking Model**: Used for reranking the retrieved documents based on relevance to the query.
-- **AWS IAM**: Manages permissions for Lambda to access S3, invoke SageMaker endpoints, and interact with Pinecone. It also provides access to CloudWatch logs for monitoring and debugging.
-- **Amazon CloudWatch**: Monitors and debugs the execution of both Lambda functions, providing insights into performance and potential issues.
-- **Pinecone**: Stores the generated embeddings from the documents, enabling efficient retrieval during queries.
-- **AWS Lambda**: Two serverless functions are used:
-   1. **Document Processing Lambda Function**: Processes documents, generates embeddings using SageMaker, and stores them in Pinecone.
-   2. **Query Handling and Reranking Lambda Function**: Handles user queries, retrieves documents from Pinecone, reranks them using the SageMaker reranking model, and generates the final response with LLM.
 
 ### Summary:
 
@@ -295,10 +280,8 @@ The system will:
 
 ---
 
-### Summary:
+### Note:
 
 - In a **Lambda-based setup**, the actual Python scripts (`build_knowledge_base_aws.py` and `query_aws.py`) are part of the Lambda functions deployed to AWS. You don't run them directly.
 - The **Lambda functions** should be invoked either via triggers (such as S3 events or API Gateway) or manually through AWS CLI/Console.
 - The command-line examples should reference how to invoke the Lambda functions instead of running the scripts directly.
-
-If you still want to test these scripts locally, you could keep the original usage, but for **deployment** and **production use**, the usage should reflect the serverless architecture.
